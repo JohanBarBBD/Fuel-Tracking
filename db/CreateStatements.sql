@@ -1,6 +1,7 @@
 CREATE TABLE [Access] (
   [access_id] int PRIMARY KEY IDENTITY(1, 1),
-  [api_key] nvarchar(255),
+  [email_address] varchar(80)
+  [api_key] varchar(12),
   [validity_until] date
 )
 GO
@@ -8,11 +9,11 @@ GO
 CREATE TABLE [Vehicles] (
   [vehicles_id] int PRIMARY KEY IDENTITY(1, 1),
   [access_id] int,
-  [make] nvarchar(255),
-  [model] nvarchar(255),
-  [reg] nvarchar(255),
+  [make] varchar(80),
+  [model] varchar(80),
+  [registration_number] varchar(8),
   [odometer] float,
-  [fuel_type] nvarchar(255),
+  [fuel_type] varchar(13),
   [tank_size] float,
   [km_per_litre] float
 )
@@ -22,7 +23,7 @@ CREATE TABLE [Fuel] (
   [fuel_id] int PRIMARY KEY IDENTITY(1, 1),
   [start_date] date,
   [end_date] date,
-  [fuel_type] nvarchar(255),
+  [fuel_type] varchar(13),
   [price_per_litre] float
 )
 GO
