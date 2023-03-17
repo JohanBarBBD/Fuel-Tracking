@@ -1,6 +1,6 @@
 CREATE TABLE [Access] (
   [access_id] int PRIMARY KEY IDENTITY(1, 1),
-  [email_address] varchar(80)
+  [email_address] varchar(80),
   [api_key] varchar(12),
   [validity_until] date
 )
