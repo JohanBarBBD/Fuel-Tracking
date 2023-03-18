@@ -1,10 +1,10 @@
-package com.api.fuel_api;
+package api.fuelTracker;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FuelApiApplicationTests {
+class FuelTrackerApplicationTests {
 
 	@Test
 	void contextLoads() {

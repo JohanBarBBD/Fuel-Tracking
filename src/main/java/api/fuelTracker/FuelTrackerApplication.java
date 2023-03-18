@@ -1,13 +1,13 @@
-package com.api.fuel_api;
+package api.fuelTracker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FuelApiApplication {
+public class FuelTrackerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FuelApiApplication.class, args);
+		SpringApplication.run(FuelTrackerApplication.class, args);
 	}
 
 }
