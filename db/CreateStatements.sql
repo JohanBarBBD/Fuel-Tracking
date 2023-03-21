@@ -1,7 +1,17 @@
+USE master;
+
+IF EXISTS(select * from sys.databases where name='FuelTrackerDB')
+DROP DATABASE FuelTrackerDB;
+
+CREATE DATABASE FuelTrackerDB;
+GO
+
+USE FuelTrackerDB;
+
 CREATE TABLE [Access] (
   [access_id] int PRIMARY KEY IDENTITY(1, 1),
-  [email_address] varchar(80),
-  [api_key] varchar(12),
+  [email] nvarchar(255),
+  [api_key] nvarchar(255),
   [validity_until] date
 )
 GO
@@ -9,11 +19,11 @@ GO
 CREATE TABLE [Vehicles] (
   [vehicles_id] int PRIMARY KEY IDENTITY(1, 1),
   [access_id] int,
-  [make] varchar(80),
-  [model] varchar(80),
-  [registration_number] varchar(8),
+  [make] nvarchar(255),
+  [model] nvarchar(255),
+  [reg] nvarchar(255),
   [odometer] float,
-  [fuel_type] varchar(13),
+  [fuel_type] nvarchar(255),
   [tank_size] float,
   [km_per_litre] float
 )
@@ -23,7 +33,7 @@ CREATE TABLE [Fuel] (
   [fuel_id] int PRIMARY KEY IDENTITY(1, 1),
   [start_date] date,
   [end_date] date,
-  [fuel_type] varchar(13),
+  [fuel_type] nvarchar(255),
   [price_per_litre] float
 )
 GO
@@ -50,30 +60,8 @@ GO
 ALTER TABLE [Vehicles] ADD FOREIGN KEY ([access_id]) REFERENCES [Access] ([access_id])
 GO
 
-CREATE TABLE [Vehicles_Records] (
-  [Vehicles_vehicles_id] int,
-  [Records_vehicles_id] int,
-  PRIMARY KEY ([Vehicles_vehicles_id], [Records_vehicles_id])
-);
+ALTER TABLE [Records] ADD FOREIGN KEY ([vehicles_id]) REFERENCES [Vehicles] ([vehicles_id])
 GO
 
-ALTER TABLE [Vehicles_Records] ADD FOREIGN KEY ([Vehicles_vehicles_id]) REFERENCES [Vehicles] ([vehicles_id]);
+ALTER TABLE [Refuels] ADD FOREIGN KEY ([vehicles_id]) REFERENCES [Vehicles] ([vehicles_id])
 GO
-
-ALTER TABLE [Vehicles_Records] ADD FOREIGN KEY ([Records_vehicles_id]) REFERENCES [Records] ([vehicles_id]);
-GO
-
-
-CREATE TABLE [Vehicles_Refuels] (
-  [Vehicles_vehicles_id] int,
-  [Refuels_vehicles_id] int,
-  PRIMARY KEY ([Vehicles_vehicles_id], [Refuels_vehicles_id])
-);
-GO
-
-ALTER TABLE [Vehicles_Refuels] ADD FOREIGN KEY ([Vehicles_vehicles_id]) REFERENCES [Vehicles] ([vehicles_id]);
-GO
-
-ALTER TABLE [Vehicles_Refuels] ADD FOREIGN KEY ([Refuels_vehicles_id]) REFERENCES [Refuels] ([vehicles_id]);
-GO
-
