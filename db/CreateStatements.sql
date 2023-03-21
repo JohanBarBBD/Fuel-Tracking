@@ -38,6 +38,15 @@ CREATE TABLE [Fuels] (
 )
 GO
 
+CREATE TABLE [FuelPrices] (
+  [fuel_price_id] int PRIMARY KEY IDENTITY(1, 1),
+  [fuel_id] int,
+  [start_date] date,
+  [end_date] date,
+  [price_per_litre] float
+)
+GO
+
 CREATE TABLE [Records] (
   [record_id] int PRIMARY KEY IDENTITY(1, 1),
   [vehicle_id] int,
@@ -59,6 +68,9 @@ GO
 
 ALTER TABLE [Vehicles] ADD FOREIGN KEY ([access_id]) REFERENCES [Access] ([access_id])
 ALTER TABLE [Vehicles] ADD FOREIGN KEY ([fuel_type]) REFERENCES [Fuels] ([fuel_id])
+GO
+
+ALTER TABLE [FuelPrices] ADD FOREIGN KEY ([fuel_id]) REFERENCES [Fuels] ([fuel_id])
 GO
 
 ALTER TABLE [Records] ADD FOREIGN KEY ([vehicle_id]) REFERENCES [Vehicles] ([vehicle_id])

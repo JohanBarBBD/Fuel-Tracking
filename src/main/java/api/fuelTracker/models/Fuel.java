@@ -1,11 +1,11 @@
 package api.fuelTracker.models;
 
+import java.util.Set;
 import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import java.sql.Date;
 
 @Getter
 @Setter
@@ -19,11 +19,8 @@ public class Fuel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int fuel_id;
 
-    private Date start_date;
-
-    private Date end_date;
-
     private String fuel_type;
 
-    private float price_per_litre;
+    @OneToMany(mappedBy = "Fuels", cascade = CascadeType.ALL)
+    private Set<FuelPrice> fuelPrices;
 }
