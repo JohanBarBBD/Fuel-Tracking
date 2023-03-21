@@ -17,19 +17,19 @@ CREATE TABLE [Access] (
 GO
 
 CREATE TABLE [Vehicles] (
-  [vehicles_id] int PRIMARY KEY IDENTITY(1, 1),
+  [vehicle_id] int PRIMARY KEY IDENTITY(1, 1),
   [access_id] int,
   [make] nvarchar(255),
   [model] nvarchar(255),
   [reg] nvarchar(255),
   [odometer] float,
-  [fuel_type] nvarchar(255),
+  [fuel_type] int,
   [tank_size] float,
   [km_per_litre] float
 )
 GO
 
-CREATE TABLE [Fuel] (
+CREATE TABLE [Fuels] (
   [fuel_id] int PRIMARY KEY IDENTITY(1, 1),
   [start_date] date,
   [end_date] date,
@@ -40,7 +40,7 @@ GO
 
 CREATE TABLE [Records] (
   [record_id] int PRIMARY KEY IDENTITY(1, 1),
-  [vehicles_id] int,
+  [vehicle_id] int,
   [record_date] date,
   [fuel_usage] float,
   [distance] float
@@ -49,7 +49,7 @@ GO
 
 CREATE TABLE [Refuels] (
   [refuel_id] int PRIMARY KEY IDENTITY(1, 1),
-  [vehicles_id] int,
+  [vehicle_id] int,
   [refuel_date] date,
   [refuel_amount] float,
   [odometer_reading] float,
@@ -58,10 +58,11 @@ CREATE TABLE [Refuels] (
 GO
 
 ALTER TABLE [Vehicles] ADD FOREIGN KEY ([access_id]) REFERENCES [Access] ([access_id])
+ALTER TABLE [Vehicles] ADD FOREIGN KEY ([fuel_type]) REFERENCES [Fuels] ([fuel_id])
 GO
 
-ALTER TABLE [Records] ADD FOREIGN KEY ([vehicles_id]) REFERENCES [Vehicles] ([vehicles_id])
+ALTER TABLE [Records] ADD FOREIGN KEY ([vehicle_id]) REFERENCES [Vehicles] ([vehicle_id])
 GO
 
-ALTER TABLE [Refuels] ADD FOREIGN KEY ([vehicles_id]) REFERENCES [Vehicles] ([vehicles_id])
+ALTER TABLE [Refuels] ADD FOREIGN KEY ([vehicle_id]) REFERENCES [Vehicles] ([vehicle_id])
 GO

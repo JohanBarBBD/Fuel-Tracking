@@ -1,11 +1,7 @@
 package api.fuelTracker.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
+import api.fuelTracker.models.Vehicle;
 
-import api.fuelTracker.models.Vehicles;
-
-@Repository
-public interface VehiclesRepository extends JpaRepository<Vehicles, Integer> {
-    
+public interface VehiclesRepository extends CrudRepository<Vehicle, Integer> {
 }
