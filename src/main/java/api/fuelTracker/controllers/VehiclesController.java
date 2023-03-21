@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import api.fuelTracker.models.Vehicles;
+import api.fuelTracker.models.Vehicle;
 import api.fuelTracker.repository.VehiclesRepository;
 
 @RestController
@@ -18,15 +18,14 @@ public class VehiclesController {
     @Autowired
     private VehiclesRepository vehiclesRepository;
 
-    @GetMapping
-    public List<Vehicles> getAllVehicles() {
-        return vehiclesRepository.findAll();
-    }
-    
-    @PostMapping
-    public Vehicles createVehicle(@RequestBody Vehicles vehicle) {
-        return vehiclesRepository.save(vehicle);
-    }
+    // @GetMapping
+    // public List<Vehicle> getAllVehicles() {
+    // return vehiclesRepository.findAll();
+    // }
 
+    // @PostMapping
+    // public Vehicle createVehicle(@RequestBody Vehicles vehicle) {
+    // return vehiclesRepository.save(vehicle);
+    // }
 
 }

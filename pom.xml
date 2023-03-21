@@ -13,7 +13,7 @@
 	<groupId>api</groupId>
 	<artifactId>fuel-tracker</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>fuelTracker</name>
+	<name>FuelTracker</name>
 	<description>Fuel Tracking API created for the BBD Java Levelup</description>
 	<packaging>jar</packaging>
 
@@ -21,7 +21,6 @@
 		<java.version>17</java.version>
 		<downloadSources>true</downloadSources>
 		<downloadJavadocs>true</downloadJavadocs>
-		<mssql-jdbc.version>9.4.1.jre8</mssql-jdbc.version>
 	</properties>
 	
 	<dependencies>
@@ -44,8 +43,7 @@
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
-			<version>6.1.0.jre8</version>
-			<scope>runtime</scope>
+			<version>8.2.1.jre8</version>
 		</dependency>
 		
 		<dependency>
