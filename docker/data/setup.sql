@@ -31,10 +31,7 @@ GO
 
 CREATE TABLE [Fuels] (
   [fuel_id] int PRIMARY KEY IDENTITY(1, 1),
-  [start_date] date,
-  [end_date] date,
-  [fuel_type] nvarchar(255),
-  [price_per_litre] float
+  [fuel_type] nvarchar(255)
 )
 GO
 
