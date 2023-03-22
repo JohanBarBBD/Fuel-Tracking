@@ -16,12 +16,12 @@ public class FuelController {
     @Autowired
     private FuelService fuelService;
 
-    // @GetMapping("/fuelType")
-    // public Response getFuelType() {
-    // return Response
-    // .ok()
-    // .setPayload();
-    // }
+    @GetMapping("/fuelType")
+    public Response getFuelType() {
+        return Response
+                .ok()
+                .setPayload(fuelService.getFuelType(0));
+    }
 
     // @GetMapping("/allFuelTypes")
 
