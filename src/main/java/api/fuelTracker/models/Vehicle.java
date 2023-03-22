@@ -1,6 +1,8 @@
 package api.fuelTracker.models;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -10,15 +12,16 @@ import lombok.experimental.Accessors;
 @Setter
 @NoArgsConstructor
 @Accessors(chain = true)
+@Data
 @Entity
 @Table(name = "Vehicles")
 public class Vehicle {
     @Id
     @Column(name = "vehicles_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
-    private int accessId;
+    private Integer accessId;
 
     private String make;
 

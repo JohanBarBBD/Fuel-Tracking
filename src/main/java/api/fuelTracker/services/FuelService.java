@@ -11,7 +11,6 @@ import api.fuelTracker.repository.FuelsRepository;
 
 @Service
 public class FuelService {
-    @Autowired
     FuelsRepository fuelsRepository;
 
     public Fuel getFuelType(int Id) {
