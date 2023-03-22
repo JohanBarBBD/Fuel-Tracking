@@ -15,8 +15,8 @@ import api.fuelTracker.repository.VehiclesRepository;
 @RestController
 @RequestMapping("api/v1/")
 public class VehiclesController {
-    @Autowired
-    private VehiclesRepository vehiclesRepository;
+    // @Autowired
+    // private vehiclesRepository;
 
     // @GetMapping
     // public List<Vehicle> getAllVehicles() {
