@@ -21,7 +21,7 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "access_id")
+    // @Column(name = "access_id")
     private Integer accessId;
 
     private String make;

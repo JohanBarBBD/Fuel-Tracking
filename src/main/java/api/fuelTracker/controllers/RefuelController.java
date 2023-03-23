@@ -31,8 +31,8 @@ public class RefuelController {
                 .setPayload(refuelService.getTotalRefuelsOfUser(object.get("apiKey")));
     }
 
-    // Post
-    @PostMapping(value = "/createRefuel", consumes = "application/json", produces = "application/json")
+    //Post
+    @PostMapping(value = "/createRefuel")
     public Response<?> addRefuel(@RequestBody Map<String, String> object) {
         return Response
                 .ok()
