@@ -20,9 +20,10 @@ public class Fuel {
     @Id
     @Column(name = "fuel_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer fuel_id;
+    private Integer fuelId;
 
-    private String fuel_type;
+    @Column(name = "fuel_type")
+    private String fuelType;
 
     @OneToMany(mappedBy = "fuel_price_id", cascade = CascadeType.ALL)
     private Set<FuelPrice> fuelPrices;

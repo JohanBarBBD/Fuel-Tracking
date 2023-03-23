@@ -26,9 +26,12 @@ public class FuelPrice {
     @JoinColumn(name = "fuel_id")
     private Fuel fuel;
 
-    private Date start_date;
+    @Column(name = "start_date")
+    private Date startDate;
 
-    private Date end_date;
+    @Column(name = "end_date")
+    private Date endDate;
 
-    private float price_per_litre;
+    @Column(name = "price_per_litre")
+    private float pricePerLitre;
 }
