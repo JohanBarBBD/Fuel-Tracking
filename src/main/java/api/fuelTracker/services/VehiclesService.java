@@ -10,6 +10,7 @@ import api.fuelTracker.exceptions.Unauthorised;
 import api.fuelTracker.models.Access;
 import api.fuelTracker.models.Vehicle;
 import api.fuelTracker.repository.AccessRepositry;
+import api.fuelTracker.repository.FuelsRepository;
 import api.fuelTracker.repository.VehiclesRepository;
 
 @Service
@@ -18,13 +19,14 @@ public class VehiclesService {
     VehiclesRepository vehiclesRepository;
     @Autowired
     AccessRepositry accessRepositry;
+    @Autowired
+    FuelsRepository fuelsRepository;
 
-    public List<Vehicle> retrieveUserVehicles(Access access) throws Exception{
-        Access accessObject = accessRepositry.getReferenceById(access.getAccessId());
+    public List<Vehicle> retrieveUserVehicles(String apiKey) {
+        List<Access> accessObject = accessRepositry.findByApiKey(apiKey);
 
-        if (accessObject != null) {
-            // List<Vehicle> vehicles =
-            return vehiclesRepository.findByAccessId(access.getAccessId());
+        if (!accessObject.isEmpty()) {
+            return vehiclesRepository.findByAccessId(accessObject.get(0).getAccessId());
         } else{
             throw new Unauthorised("Unauthorised access!");
         }
@@ -40,13 +42,16 @@ public class VehiclesService {
         }
     }
 
-    public void addVehicle(String apiKey, Vehicle newVehicle) {
+    public Vehicle addVehicle(String apiKey, String fuelType, Vehicle newVehicle) {
         Access accessObject = (accessRepositry.findByApiKey(apiKey)).get(0) ;
         if (!vehiclesRepository.findByRegistrationNumber(newVehicle.getRegistrationNumber()).isEmpty()) {
             throw new AlreadyExistsException("Vehicle with registration number "+ newVehicle.getRegistrationNumber()+ " is already added");
         }
         if (accessObject != null) {
+            newVehicle.setAccessId(accessObject.getAccessId());
+            newVehicle.setFuel(fuelsRepository.findByFuelType(fuelType));
             vehiclesRepository.save(newVehicle);
+            return newVehicle;
         } else {
             throw new Unauthorised("Unauthorised access!");
         }
