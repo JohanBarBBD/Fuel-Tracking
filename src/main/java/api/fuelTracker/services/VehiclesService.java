@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import api.fuelTracker.exceptions.AlreadyExistsException;
 import api.fuelTracker.exceptions.Unauthorised;
+import api.fuelTracker.exceptions.VehicleNotFoundException;
 import api.fuelTracker.models.Access;
 import api.fuelTracker.models.Vehicle;
 import api.fuelTracker.repository.AccessRepositry;
@@ -32,11 +33,18 @@ public class VehiclesService {
         }
     }
 
-    public List<Vehicle> retrieveUserVehicleByRegistrationNumber(String apiKey, String registrationNumber) {
+    public Vehicle retrieveUserVehicleByRegistrationNumber(String apiKey, String registrationNumber) {
         Access accessObject = (accessRepositry.findByApiKey(apiKey)).get(0) ;
 
         if (accessObject != null) {
-            return vehiclesRepository.findByRegistrationNumber(registrationNumber);
+            List<Vehicle> vehicles = vehiclesRepository.findByRegistrationNumber(registrationNumber);
+
+            if (vehicles.isEmpty()) {
+                throw new VehicleNotFoundException("Vehicle with registration number "+ registrationNumber + " not found");
+            } else {
+                return vehicles.get(0);
+            }
+            
         } else {
             throw new Unauthorised("Unauthorised access!");
         }

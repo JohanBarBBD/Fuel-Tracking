@@ -25,13 +25,13 @@ public class AccessController {
     private AccessService accessService;
 
     @GetMapping(value="/{email}")
-    public Response getMethodName(@PathVariable("email") String email) {
+    public Response getAccessByEmail(@PathVariable("email") String email) {
         return Response
                 .ok()
                 .setPayload(accessService.getAccess(email));
     }
     
-    @PostMapping(value = "/new", consumes = "application/json")
+    @PostMapping(value = "/new")
     public Response createAccess(@RequestBody Map<String, String> email) {
         return Response
                 .ok()
