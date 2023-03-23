@@ -1,7 +1,5 @@
 package api.fuelTracker.controllers;
 
-import io.swagger.annotations.Api;
-
 import java.sql.Date;
 import java.util.Map;
 
@@ -14,7 +12,6 @@ import api.fuelTracker.services.RefuelService;
 
 @RestController
 @RequestMapping("/refuel")
-@Api(value = "", description = "Details about fuels types and fuel prices")
 public class RefuelController {
     @Autowired
     private RefuelService refuelService;
@@ -36,7 +33,7 @@ public class RefuelController {
 
     //Post
     @PostMapping(value = "/createRefuel", consumes = "application/json", produces = "application/json")
-    public Response addRefuel(@RequestBody Map<String, String> object) {
+    public Response<?> addRefuel(@RequestBody Map<String, String> object) {
         return Response
                 .ok()
                 .setPayload(refuelService.addRefuel(object.get("apiKey"), object.get("registrationNumber"), createRefuelObject(object)));
@@ -44,14 +41,14 @@ public class RefuelController {
 
     private Refuel createRefuelObject(Map<String, String> object) {
         return new Refuel()
-        
-                    .setVehicleId(Integer.parseInt(object.get("vehicleId")))
-                    .setRefuelDate(Date.valueOf(object.get("refuelDate")))
-                    .setRefuelAmount(Float.parseFloat(object.get("refuelAmount")))
-                    .setOdometerReading(Float.parseFloat(object.get("odometerReading")))
-                    .setCost(Float.parseFloat(object.get("cost")));                    
+
+                .setVehicleId(Integer.parseInt(object.get("vehicleId")))
+                .setRefuelDate(Date.valueOf(object.get("refuelDate")))
+                .setRefuelAmount(Float.parseFloat(object.get("refuelAmount")))
+                .setOdometerReading(Float.parseFloat(object.get("odometerReading")))
+                .setCost(Float.parseFloat(object.get("cost")));
 
     }
-    
-    //delete
+
+    // delete
 }

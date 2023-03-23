@@ -17,32 +17,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 @RequestMapping("/access")
 public class AccessController {
     @Autowired
     private AccessService accessService;
 
-    @GetMapping(value="/{email}")
-    public Response getAccessByEmail(@PathVariable("email") String email) {
+    @GetMapping(value = "/{email}")
+    public Response<?> getAccessByEmail(@PathVariable("email") String email) {
         return Response
                 .ok()
                 .setPayload(accessService.getAccess(email));
     }
-    
+
     @PostMapping(value = "/new")
-    public Response createAccess(@RequestBody Map<String, String> email) {
+    public Response<?> createAccess(@RequestBody Map<String, String> email) {
         return Response
                 .ok()
                 .setPayload(accessService.addNewAccess(createAccessObject(email.get("email"))));
     }
 
-    private Access createAccessObject(String email){
+    private Access createAccessObject(String email) {
         return new Access()
-                    .setApiKey(generateApiKey())
-                    .setEmail(email)
-                    .setValidityUntil(new Date(System.currentTimeMillis()));
+                .setApiKey(generateApiKey())
+                .setEmail(email)
+                .setValidityUntil(new Date(System.currentTimeMillis()));
     }
 
     private String generateApiKey() {
