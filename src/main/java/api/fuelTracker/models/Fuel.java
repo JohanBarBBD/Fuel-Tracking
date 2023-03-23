@@ -1,6 +1,5 @@
 package api.fuelTracker.models;
 
-import java.util.Set;
 import jakarta.persistence.*;
 
 import lombok.Data;
@@ -20,11 +19,8 @@ public class Fuel {
     @Id
     @Column(name = "fuel_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer fuelId;
+    private Integer id;
 
     @Column(name = "fuel_type")
     private String fuelType;
-
-    @OneToMany(mappedBy = "fuel_price_id", cascade = CascadeType.ALL)
-    private Set<FuelPrice> fuelPrices;
 }

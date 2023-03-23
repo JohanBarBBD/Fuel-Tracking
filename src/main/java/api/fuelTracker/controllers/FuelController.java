@@ -5,43 +5,55 @@ import org.springframework.web.bind.annotation.*;
 
 import api.fuelTracker.dto.responses.Response;
 import api.fuelTracker.models.Fuel;
+import api.fuelTracker.models.FuelPrice;
 import api.fuelTracker.services.FuelService;
 
 @RestController
 @RequestMapping("/fuel")
-// @Api(value = "", description = "Details about fuels types and fuel prices")
 public class FuelController {
     @Autowired
     private FuelService fuelService;
 
-    @GetMapping("/fuelType/{id}")
-    public Response getFuelType(@PathVariable int id) {
+    @GetMapping("/fuelById/{id}")
+    public Response<?> getFuelType(@PathVariable int id) {
         return Response
                 .ok()
-                .setPayload(fuelService.getFuelType(id));
+                .setPayload(fuelService.getFuelById(id));
     }
 
-    @GetMapping("/allFuelTypes")
-    public Response getAllFuelTypes() {
+    @GetMapping("/fuelByType/{fuelType}")
+    public Response<?> getFuelType(@PathVariable String fuelType) {
+        return Response
+                .ok()
+                .setPayload(fuelService.getFuelByType(fuelType));
+    }
+
+    @GetMapping("/allFuels")
+    public Response<?> getAllFuelTypes() {
         return Response
                 .ok()
                 .setPayload(fuelService.getAllFuelTypes());
     }
 
-    // @GetMapping("/currentFuelPrice")
-    // public Response getCurrentFuelPrice() {
-    // return Response
-    // .ok()
-    // .setPayload(fuelService.getCurrentFuelPrice());
-    // }
-
-    // @GetMapping("/futureFuelPrice")
-
-    @PostMapping(value = "/createFuel", consumes = "application/json", produces = "application/json")
-    public Response createFuelType(@RequestBody Fuel fuel) {
+    @GetMapping("/fuelWithCurrentPrice/{id}")
+    public Response<?> getFuelWithCurrentPrice(@PathVariable int id) {
         return Response
                 .ok()
-                .setPayload(fuelService.createFuelType(fuel));
+                .setPayload(fuelService.getFuelWithCurrentPrice(id));
+    }
+
+    @PostMapping(value = "/addFuel", consumes = "application/json", produces = "application/json")
+    public Response<?> addFuelType(@RequestBody Fuel fuel) {
+        return Response
+                .ok()
+                .setPayload(fuelService.addFuelType(fuel));
+    }
+
+    @PostMapping(value = "/addFuelPrice", consumes = "application/json", produces = "application/json")
+    public Response<?> addFuelPrice(@RequestBody FuelPrice fuelPrice) {
+        return Response
+                .ok()
+                .setPayload(fuelService.addFuelPrice(fuelPrice));
     }
 
 }
