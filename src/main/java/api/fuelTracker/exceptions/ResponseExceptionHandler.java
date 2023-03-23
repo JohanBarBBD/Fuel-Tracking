@@ -26,4 +26,13 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
                 request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(RecordsNotFoundException.class)
+    public final ResponseEntity<ExceptionResponse> handleRecordsNotFoundException(
+            RecordsNotFoundException recordsNotFoundException, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(),
+                recordsNotFoundException.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.OK);
+    }
 }
