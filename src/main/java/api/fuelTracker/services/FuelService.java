@@ -7,14 +7,40 @@ import org.springframework.stereotype.Service;
 
 import api.fuelTracker.exceptions.FuelNotFoundException;
 import api.fuelTracker.models.Fuel;
+import api.fuelTracker.repository.FuelPricesRepository;
 import api.fuelTracker.repository.FuelsRepository;
 
 @Service
 public class FuelService {
+    @Autowired
     FuelsRepository fuelsRepository;
+
+    @Autowired
+    FuelPricesRepository fuelPricesRepository;
 
     public Fuel getFuelType(int Id) {
         Optional<Fuel> fuel = fuelsRepository.findById(Id);
-        return fuel.orElseThrow(() -> new FuelNotFoundException("Could not find specified fuel type"));
+        return fuel.orElseThrow(() -> new FuelNotFoundException("Could not find fuel type with ID: " + Id));
     }
+
+    public List<Fuel> getAllFuelTypes() {
+        List<Fuel> fuels = fuelsRepository.findAll();
+
+        if (!fuels.isEmpty()) {
+            return fuels;
+        }
+
+        return Collections.emptyList();
+    }
+
+    public Fuel createFuelType(Fuel fuel) {
+        fuelsRepository.save(fuel);
+
+        return fuel;
+    }
+
+    // public FuelPrice updateFuelPrice(@RequestBody FuelPrice fuelPrice) {
+
+    // }
+
 }

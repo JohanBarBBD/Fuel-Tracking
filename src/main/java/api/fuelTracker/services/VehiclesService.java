@@ -7,6 +7,6 @@ import api.fuelTracker.repository.VehiclesRepository;
 
 @Service
 public class VehiclesService {
-    
+    @Autowired
     VehiclesRepository vehiclesRepository;
 }
