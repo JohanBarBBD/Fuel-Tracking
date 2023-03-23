@@ -20,7 +20,7 @@ public class FuelPrice {
     @Id
     @Column(name = "fuel_price_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer fuel_price_id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fuel_id")
