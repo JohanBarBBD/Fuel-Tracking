@@ -22,13 +22,18 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer record_id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vehicle_id")
-    private Vehicle vehicle;
+    @Column(name = "vehicle_id")
+    private int vehicleId;
 
-    private Date record_date;
+    // @ManyToOne(fetch = FetchType.LAZY)
+    // @JoinColumn(name = "vehicle_id", insertable = false, updatable = false)
+    // private Vehicle vehicle;
 
-    private float fuel_usage;
+    @Column(name = "record_date")
+    private Date recordDate;
+
+    @Column(name = "fuel_usage")
+    private float fuelUsage;
 
     private float distance;
 }
