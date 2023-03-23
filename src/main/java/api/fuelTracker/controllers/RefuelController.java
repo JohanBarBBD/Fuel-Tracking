@@ -16,16 +16,16 @@ public class RefuelController {
     @Autowired
     private RefuelService refuelService;
 
-
     @PostMapping("/getByVehicleRegNumber")
-    public Response getRefuelByVehicleRegNumber(@RequestBody Map<String, String> object){
+    public Response<?> getRefuelByVehicleRegNumber(@RequestBody Map<String, String> object) {
         return Response
                 .ok()
-                .setPayload(refuelService.getRefuelsByVehicleRegNumber(object.get("apiKey"), object.get("registrationNumber")));
+                .setPayload(refuelService.getRefuelsByVehicleRegNumber(object.get("apiKey"),
+                        object.get("registrationNumber")));
     }
 
     @PostMapping("/getUserRefuels")
-    public Response getUserRefuels(@RequestBody Map<String, String> object) {
+    public Response<?> getUserRefuels(@RequestBody Map<String, String> object) {
         return Response
                 .ok()
                 .setPayload(refuelService.getTotalRefuelsOfUser(object.get("apiKey")));
@@ -36,7 +36,8 @@ public class RefuelController {
     public Response<?> addRefuel(@RequestBody Map<String, String> object) {
         return Response
                 .ok()
-                .setPayload(refuelService.addRefuel(object.get("apiKey"), object.get("registrationNumber"), createRefuelObject(object)));
+                .setPayload(refuelService.addRefuel(object.get("apiKey"), object.get("registrationNumber"),
+                        createRefuelObject(object)));
     }
 
     private Refuel createRefuelObject(Map<String, String> object) {

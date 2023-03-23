@@ -8,12 +8,15 @@ import org.springframework.stereotype.Service;
 
 import api.fuelTracker.exceptions.AlreadyExistsException;
 import api.fuelTracker.exceptions.FuelNotFoundException;
+import api.fuelTracker.exceptions.InvalidDataException;
 import api.fuelTracker.exceptions.Unauthorised;
 import api.fuelTracker.exceptions.VehicleNotFoundException;
 import api.fuelTracker.models.Access;
 import api.fuelTracker.models.Fuel;
+import api.fuelTracker.models.FuelPrice;
 import api.fuelTracker.models.Vehicle;
 import api.fuelTracker.repository.AccessRepositry;
+import api.fuelTracker.repository.FuelPricesRepository;
 import api.fuelTracker.repository.FuelsRepository;
 import api.fuelTracker.repository.VehiclesRepository;
 
@@ -25,6 +28,8 @@ public class VehiclesService {
     AccessRepositry accessRepositry;
     @Autowired
     FuelsRepository fuelsRepository;
+    @Autowired
+    FuelPricesRepository fuelPricesRepository;
 
     public List<Vehicle> retrieveUserVehicles(String apiKey) {
         List<Access> accessObject = accessRepositry.findByApiKey(apiKey);
@@ -71,6 +76,24 @@ public class VehiclesService {
         } else {
             throw new Unauthorised();
         }
+    }
+
+    public float estimateFuelCost(String apiKey, String registrationNumber, float distanceToTravel) {
+        Access accessObject = (accessRepositry.findByApiKey(apiKey)).get(0);
+        float calculatedCost = 0;
+
+        if (distanceToTravel < 0) {
+            throw new InvalidDataException("distanceToTravel");
+        } else if (accessObject != null) {
+            Vehicle vehicle = retrieveUserVehicleByRegistrationNumber(apiKey, registrationNumber);
+            FuelPrice fuelPrice = fuelPricesRepository.findFirstByIdOrderByStartDateDesc(vehicle.getFuel().getId())
+                    .get();
+
+            calculatedCost = (distanceToTravel / (vehicle.getKmPerLitre() * fuelPrice.getPricePerLitre()));
+        } else {
+            throw new Unauthorised();
+        }
+        return calculatedCost;
     }
 
 }
