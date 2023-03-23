@@ -35,8 +35,9 @@ public class VehiclesService {
         List<Access> accessObject = accessRepositry.findByApiKey(apiKey);
 
         if (!accessObject.isEmpty()) {
-            return vehiclesRepository.findByAccessId(accessObject.get(0).getAccessId());
-        } else {
+            List<Vehicle> vehicles = vehiclesRepository.findByAccessId(accessObject.get(0).getAccessId());
+            return vehicles;
+        } else{
             throw new Unauthorised();
         }
     }
@@ -85,7 +86,7 @@ public class VehiclesService {
             throw new InvalidDataException("distanceToTravel");
         } else if (accessObject != null) {
             Vehicle vehicle = retrieveUserVehicleByRegistrationNumber(apiKey, registrationNumber);
-            FuelPrice fuelPrice = fuelPricesRepository.findFirstByIdOrderByStartDateDesc(vehicle.getFuel().getId())
+            FuelPrice fuelPrice = fuelPricesRepository.findTop1ByFuelIdOrderByStartDateDesc(vehicle.getFuel().getId())
                     .get();
 
             calculatedCost = (distanceToTravel / (vehicle.getKmPerLitre() * fuelPrice.getPricePerLitre()));

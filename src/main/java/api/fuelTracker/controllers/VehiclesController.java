@@ -14,7 +14,7 @@ import api.fuelTracker.models.Vehicle;
 import api.fuelTracker.services.VehiclesService;
 
 @RestController
-@RequestMapping("/vehicles")
+@RequestMapping(value = "/vehicles", produces="application/json")
 public class VehiclesController {
     @Autowired
     private VehiclesService vehiclesService;
