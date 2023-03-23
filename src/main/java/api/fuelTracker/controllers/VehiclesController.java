@@ -1,10 +1,8 @@
 package api.fuelTracker.controllers;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.fuelTracker.dto.responses.Response;
 import api.fuelTracker.models.Vehicle;
-import api.fuelTracker.repository.VehiclesRepository;
 import api.fuelTracker.services.VehiclesService;
 
 @RestController
