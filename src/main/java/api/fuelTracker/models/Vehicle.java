@@ -21,21 +21,26 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "access_id")
     private Integer accessId;
 
     private String make;
 
     private String model;
 
+    @Column(name = "reg")
     private String registrationNumber;
 
+    @Column(name = "odometer")
     private float odometerReading;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fuel_type")
     private Fuel fuel;
 
+    @Column(name = "tank_size")
     private float tankSize;
 
-    private float kmPerLiter;
+    @Column(name = "km_per_litre")
+    private float kmPerLitre;
 }

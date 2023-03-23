@@ -30,10 +30,15 @@ public class FuelController {
     }
 
     // @GetMapping("/currentFuelPrice")
+    // public Response getCurrentFuelPrice() {
+    // return Response
+    // .ok()
+    // .setPayload(fuelService.getCurrentFuelPrice());
+    // }
 
     // @GetMapping("/futureFuelPrice")
 
-    @PostMapping("/fuel")
+    @PostMapping(value = "/createFuel", consumes = "application/json", produces = "application/json")
     public Response createFuelType(@RequestBody Fuel fuel) {
         return Response
                 .ok()

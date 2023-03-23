@@ -5,4 +5,5 @@ import api.fuelTracker.models.Fuel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FuelsRepository extends JpaRepository<Fuel, Integer> {
+    Fuel findByFuelType(String fuel_type);
 }
