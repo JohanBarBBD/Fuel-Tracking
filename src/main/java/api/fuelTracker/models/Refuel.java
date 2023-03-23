@@ -20,7 +20,7 @@ public class Refuel {
     @Id
     @Column(name = "refuel_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer refuel_id;
+    private Integer refuelId;
 
     @Column(name = "vehicle_id")
     private int vehicleId;
@@ -30,13 +30,13 @@ public class Refuel {
     // private Vehicle vehicle;
 
     @Column(name = "refuel_date")
-    private Date refuel_date;
+    private Date refuelDate;
 
     @Column(name = "refuel_amount")
-    private float refuel_amount;
+    private float refuelAmount;
 
     @Column(name = "odometer_reading")
-    private float odometer_reading;
+    private float odometerReading;
 
     private float cost;
 }
