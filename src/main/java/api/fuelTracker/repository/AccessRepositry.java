@@ -9,8 +9,9 @@ import org.springframework.data.repository.query.Param;
 import api.fuelTracker.models.Access;
 
 public interface AccessRepositry extends JpaRepository<Access, Integer> {
-    @Query("SELECT access_id, email, api_key, validity_until FROM Access a WHERE a.api_key = :apiKey")
+    @Query(value = "SELECT access_id, email, api_key, validity_until FROM Access a WHERE a.api_key = :apiKey", nativeQuery = true)
     List<Access> findByApiKey(@Param("apiKey") String apiKey);
-    @Query("SELECT access_id, email, api_key, validity_until FROM Access a WHERE a.email = :email")
+
+    @Query(value = "SELECT access_id, email, api_key, validity_until FROM Access a WHERE a.email = :email", nativeQuery = true)
     List<Access> findByEmail(@Param("email") String email);
 }
