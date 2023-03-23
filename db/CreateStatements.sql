@@ -10,8 +10,8 @@ USE FuelTrackerDB;
 
 CREATE TABLE [Access] (
   [access_id] int PRIMARY KEY IDENTITY(1, 1),
-  [email] nvarchar(255),
-  [api_key] nvarchar(255),
+  [email] varchar(80),
+  [api_key] varchar(12),
   [validity_until] date
 )
 GO
@@ -19,9 +19,9 @@ GO
 CREATE TABLE [Vehicles] (
   [vehicle_id] int PRIMARY KEY IDENTITY(1, 1),
   [access_id] int,
-  [make] nvarchar(255),
-  [model] nvarchar(255),
-  [reg] nvarchar(255),
+  [make] varchar(80),
+  [model] varchar(80),
+  [reg] varchar(80),
   [odometer] float,
   [fuel_type] int,
   [tank_size] float,
@@ -31,7 +31,7 @@ GO
 
 CREATE TABLE [Fuels] (
   [fuel_id] int PRIMARY KEY IDENTITY(1, 1),
-  [fuel_type] nvarchar(255)
+  [fuel_type] varchar(13)
 )
 GO
 
