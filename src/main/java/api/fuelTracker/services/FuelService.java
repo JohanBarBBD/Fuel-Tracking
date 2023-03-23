@@ -5,6 +5,7 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import api.fuelTracker.exceptions.AlreadyExistsException;
 import api.fuelTracker.exceptions.FuelNotFoundException;
 import api.fuelTracker.models.Fuel;
 import api.fuelTracker.repository.FuelPricesRepository;
@@ -34,8 +35,12 @@ public class FuelService {
     }
 
     public Fuel createFuelType(Fuel fuel) {
-        fuelsRepository.save(fuel);
+        Optional<Fuel> existingFuel = Optional.ofNullable(fuelsRepository.findByFuelType(fuel.getFuelType()));
+        if (existingFuel.isPresent()) {
+            throw new AlreadyExistsException(fuel.getFuelType() + " already exists");
+        }
 
+        fuelsRepository.save(fuel);
         return fuel;
     }
 
