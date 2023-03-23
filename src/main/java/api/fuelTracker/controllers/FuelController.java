@@ -1,6 +1,5 @@
 package api.fuelTracker.controllers;
 
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +9,7 @@ import api.fuelTracker.services.FuelService;
 
 @RestController
 @RequestMapping("/fuel")
-@Api(value = "", description = "Details about fuels types and fuel prices")
+// @Api(value = "", description = "Details about fuels types and fuel prices")
 public class FuelController {
     @Autowired
     private FuelService fuelService;
