@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
 @Table(name = "Vehicles")
 public class Vehicle {
     @Id
-    @Column(name = "vehicles_id")
+    @Column(name = "vehicle_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
