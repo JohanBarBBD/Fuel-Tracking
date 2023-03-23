@@ -31,8 +31,8 @@ public class VehiclesService {
 
         if (!accessObject.isEmpty()) {
             return vehiclesRepository.findByAccessId(accessObject.get(0).getAccessId());
-        } else {
-            throw new Unauthorised("Unauthorised access!");
+        } else{
+            throw new Unauthorised();
         }
     }
 
@@ -50,7 +50,7 @@ public class VehiclesService {
             }
 
         } else {
-            throw new Unauthorised("Unauthorised access!");
+            throw new Unauthorised();
         }
     }
 
@@ -68,7 +68,7 @@ public class VehiclesService {
             vehiclesRepository.save(newVehicle);
             return newVehicle;
         } else {
-            throw new Unauthorised("Unauthorised access!");
+            throw new Unauthorised();
         }
     }
 

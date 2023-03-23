@@ -20,7 +20,7 @@ public class Refuel {
     @Id
     @Column(name = "refuel_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer refuelId;
 
     @Column(name = "vehicle_id")
     private int vehicleId;

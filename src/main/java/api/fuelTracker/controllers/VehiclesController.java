@@ -22,23 +22,23 @@ public class VehiclesController {
     // public List<Vehicle> getAllVehicles() {
     // return vehiclesRepository.findAll();
     // }
-    @PostMapping
-    Response<?> getUserVehicles(@RequestBody Map<String, String> object) {
+    @PostMapping (value = "/userVehicles")
+    Response getUserVehicles(@RequestBody Map<String, String> object) {
         return Response
                 .ok()
                 .setPayload(vehiclesService.retrieveUserVehicles(object.get("apiKey")));
     }
 
-    @PostMapping
-    Response<?> getVehicleByRegNumber(@RequestBody Map<String, String> object) {
+    @PostMapping (value = "/vehicleByRegNumber")
+    Response getVehicleByRegNumber(@RequestBody Map<String, String> object) {
         return Response
                 .ok()
                 .setPayload(vehiclesService.retrieveUserVehicleByRegistrationNumber(object.get("apiKey"),
                         object.get("registrationNumber")));
     }
 
-    @PostMapping
-    public Response<?> createVehicle(@RequestBody Map<String, String> object) {
+    @PostMapping (value = "/new")
+    public Response createVehicle(@RequestBody Map<String, String> object) {
         return Response
                 .ok()
                 .setPayload(vehiclesService.addVehicle(object.get("apiKey"), object.get("fuelType"),
