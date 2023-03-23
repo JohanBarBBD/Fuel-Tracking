@@ -1,6 +1,7 @@
 package api.fuelTracker.services;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +15,14 @@ import api.fuelTracker.repository.AccessRepositry;
 public class AccessService {
     @Autowired
     private AccessRepositry accessRepositry;
+    private Random rd = new Random();
 
     public Access addNewAccess(Access access){
         if (!accessRepositry.findByEmail(access.getEmail()).isEmpty()) {
             throw new AlreadyExistsException("User already exists");
         }
         else {
+            access.setApiKey(generateApiKey());
             accessRepositry.save(access);
             return access;
         }
@@ -43,5 +46,15 @@ public class AccessService {
         else {
             return accessObject.get(0);
         }
+    }
+
+    private String generateApiKey() {
+        String characters = "abcdefghijklmnopqrstuvwqyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        String apiKey = "";
+        for (int i = 0; i < 12; i++) {
+            apiKey += characters.charAt(rd.nextInt(characters.length()));
+        }
+
+        return apiKey;
     }
 }

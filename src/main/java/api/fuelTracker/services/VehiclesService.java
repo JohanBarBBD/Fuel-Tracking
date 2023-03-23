@@ -1,14 +1,17 @@
 package api.fuelTracker.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import api.fuelTracker.exceptions.AlreadyExistsException;
+import api.fuelTracker.exceptions.FuelNotFoundException;
 import api.fuelTracker.exceptions.Unauthorised;
 import api.fuelTracker.exceptions.VehicleNotFoundException;
 import api.fuelTracker.models.Access;
+import api.fuelTracker.models.Fuel;
 import api.fuelTracker.models.Vehicle;
 import api.fuelTracker.repository.AccessRepositry;
 import api.fuelTracker.repository.FuelsRepository;
@@ -29,41 +32,44 @@ public class VehiclesService {
         if (!accessObject.isEmpty()) {
             return vehiclesRepository.findByAccessId(accessObject.get(0).getAccessId());
         } else{
-            throw new Unauthorised("Unauthorised access!");
+            throw new Unauthorised();
         }
     }
 
     public Vehicle retrieveUserVehicleByRegistrationNumber(String apiKey, String registrationNumber) {
-        Access accessObject = (accessRepositry.findByApiKey(apiKey)).get(0) ;
+        Access accessObject = (accessRepositry.findByApiKey(apiKey)).get(0);
 
         if (accessObject != null) {
             List<Vehicle> vehicles = vehiclesRepository.findByRegistrationNumber(registrationNumber);
 
             if (vehicles.isEmpty()) {
-                throw new VehicleNotFoundException("Vehicle with registration number "+ registrationNumber + " not found");
+                throw new VehicleNotFoundException(
+                        "Vehicle with registration number " + registrationNumber + " not found");
             } else {
                 return vehicles.get(0);
             }
-            
+
         } else {
-            throw new Unauthorised("Unauthorised access!");
+            throw new Unauthorised();
         }
     }
 
     public Vehicle addVehicle(String apiKey, String fuelType, Vehicle newVehicle) {
-        Access accessObject = (accessRepositry.findByApiKey(apiKey)).get(0) ;
+        Access accessObject = (accessRepositry.findByApiKey(apiKey)).get(0);
+        Optional<Fuel> fuel = fuelsRepository.findByFuelType(fuelType);
         if (!vehiclesRepository.findByRegistrationNumber(newVehicle.getRegistrationNumber()).isEmpty()) {
-            throw new AlreadyExistsException("Vehicle with registration number "+ newVehicle.getRegistrationNumber()+ " is already added");
-        }
-        if (accessObject != null) {
+            throw new AlreadyExistsException(
+                    "Vehicle with registration number " + newVehicle.getRegistrationNumber() + " is already added");
+        } else if (!fuel.isPresent()) {
+            throw new FuelNotFoundException("Could not find a fuel of type: " + fuelType);
+        } else if (accessObject != null) {
             newVehicle.setAccessId(accessObject.getAccessId());
-            newVehicle.setFuel(fuelsRepository.findByFuelType(fuelType));
+            newVehicle.setFuel(fuel.get());
             vehiclesRepository.save(newVehicle);
             return newVehicle;
         } else {
-            throw new Unauthorised("Unauthorised access!");
+            throw new Unauthorised();
         }
     }
 
-    
 }

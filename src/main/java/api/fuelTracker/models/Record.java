@@ -20,7 +20,7 @@ public class Record {
     @Id
     @Column(name = "record_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer record_id;
+    private Integer id;
 
     @Column(name = "vehicle_id")
     private int vehicleId;
