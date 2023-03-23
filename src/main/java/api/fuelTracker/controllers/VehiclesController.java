@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.fuelTracker.models.Vehicle;
 import api.fuelTracker.repository.VehiclesRepository;
+import api.fuelTracker.services.VehiclesService;
 
 @RestController
 @RequestMapping("api/v1/")
 public class VehiclesController {
-    // @Autowired
-    // private vehiclesRepository;
+    @Autowired
+    private VehiclesService vehiclesService;
 
     // @GetMapping
     // public List<Vehicle> getAllVehicles() {

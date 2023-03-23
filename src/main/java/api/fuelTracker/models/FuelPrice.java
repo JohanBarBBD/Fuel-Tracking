@@ -1,6 +1,8 @@
 package api.fuelTracker.models;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -11,17 +13,18 @@ import java.sql.Date;
 @Setter
 @NoArgsConstructor
 @Accessors(chain = true)
+@Data
 @Entity
 @Table(name = "FuelPrices")
 public class FuelPrice {
     @Id
     @Column(name = "fuel_price_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int fuel_price_id;
+    private Integer fuel_price_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fuel_id")
-    private int Fuel;
+    private Fuel fuel;
 
     private Date start_date;
 
