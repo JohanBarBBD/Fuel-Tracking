@@ -1,6 +1,11 @@
 package api.fuelTracker.controllers;
 
 import io.swagger.annotations.Api;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,12 +36,29 @@ public class RefuelController {
 
 
     //Post
-    @PostMapping(value = "/createFuel", consumes = "application/json", produces = "application/json")
-    public Response createFuelType(@RequestBody Refuel refuel) {
+    @PostMapping(value = "/createRefuel", consumes = "application/json", produces = "application/json")
+    public Response addRefuel(@RequestBody Map<String, String> object) {
         return Response
                 .ok()
-                .setPayload(refuelService.createRefuel(refuel));
+                .setPayload(refuelService.addRefuel(object.get("apiKey"),createRefuelObject(object)));
     }
+    @PostMapping(value = "/addRecord")
+    public Response addRecord(@RequestBody Map<String, String> object) {
+        return Response
+                .ok()
+                .setPayload(createRefuelObject(object));
+    }
+    private Refuel createRefuelObject(Map<String, String> object) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return new Refuel()
+        
+                    .setVehicleId(Integer.parseInt(object.get("vehicleId")))
+                    .setRefuelDate(Date.valueOf(object.get("refuelDate")))
+                    .setRefuelAmount(Float.parseFloat(object.get("refuelAmount")))
+                    .setOdometerReading(Float.parseFloat(object.get("odometerReading")))
+                    .setCost(Float.parseFloat(object.get("cost")));                    
 
+    }
+    
     //delete
 }
