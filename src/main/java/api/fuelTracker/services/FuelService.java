@@ -43,7 +43,7 @@ public class FuelService {
 
     public FuelWithPriceDto getFuelWithCurrentPrice(int id) {
         Optional<Fuel> fuel = fuelsRepository.findById(id);
-        Optional<FuelPrice> fuelPrice = fuelPricesRepository.findFirstByIdOrderByStartDateDesc(id);
+        Optional<FuelPrice> fuelPrice = fuelPricesRepository.findTop1ByFuelIdOrderByStartDateDesc(id);
 
         if (!fuel.isPresent()) {
             throw new FuelNotFoundException("Could not find fuel type with ID: " + id);

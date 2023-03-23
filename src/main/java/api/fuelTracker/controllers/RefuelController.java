@@ -32,7 +32,7 @@ public class RefuelController {
     }
 
     //Post
-    @PostMapping(value = "/createRefuel", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/createRefuel")
     public Response<?> addRefuel(@RequestBody Map<String, String> object) {
         return Response
                 .ok()

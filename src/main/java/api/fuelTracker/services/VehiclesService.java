@@ -30,7 +30,8 @@ public class VehiclesService {
         List<Access> accessObject = accessRepositry.findByApiKey(apiKey);
 
         if (!accessObject.isEmpty()) {
-            return vehiclesRepository.findByAccessId(accessObject.get(0).getAccessId());
+            List<Vehicle> vehicles = vehiclesRepository.findByAccessId(accessObject.get(0).getAccessId());
+            return vehicles;
         } else{
             throw new Unauthorised();
         }
