@@ -86,7 +86,7 @@ public class VehiclesService {
             throw new InvalidDataException("distanceToTravel");
         } else if (accessObject != null) {
             Vehicle vehicle = retrieveUserVehicleByRegistrationNumber(apiKey, registrationNumber);
-            FuelPrice fuelPrice = fuelPricesRepository.findFirstByIdOrderByStartDateDesc(vehicle.getFuel().getId())
+            FuelPrice fuelPrice = fuelPricesRepository.findTop1ByFuelIdOrderByStartDateDesc(vehicle.getFuel().getId())
                     .get();
 
             calculatedCost = (distanceToTravel / (vehicle.getKmPerLitre() * fuelPrice.getPricePerLitre()));
