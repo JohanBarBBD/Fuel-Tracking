@@ -13,7 +13,7 @@
 	<groupId>api</groupId>
 	<artifactId>fuel-tracker</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>fuelTracker</name>
+	<name>FuelTracker</name>
 	<description>Fuel Tracking API created for the BBD Java Levelup</description>
 	<packaging>jar</packaging>
 
@@ -43,9 +43,9 @@
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
-			<scope>runtime</scope>
+			<version>8.2.1.jre8</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -59,10 +59,11 @@
 		</dependency>
 
 		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-boot-starter</artifactId>
-			<version>3.0.0</version>
-		</dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>1.0.0.Final</version>
+        </dependency>
+		
 	</dependencies>
 
 	<build>
