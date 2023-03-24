@@ -89,7 +89,7 @@ public class VehiclesService {
             FuelPrice fuelPrice = fuelPricesRepository.findTop1ByFuelIdOrderByStartDateDesc(vehicle.getFuel().getId())
                     .get();
 
-            calculatedCost = (distanceToTravel / (vehicle.getKmPerLitre() * fuelPrice.getPricePerLitre()));
+            calculatedCost = (distanceToTravel / (vehicle.getKmPerLitre() )* fuelPrice.getPricePerLitre());
         } else {
             throw new Unauthorised();
         }

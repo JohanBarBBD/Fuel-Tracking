@@ -39,7 +39,7 @@ public class VehiclesController {
     }
 
     @PostMapping(value = "/estimateFuelCost")
-    public Response<?> estimateFuelCost(FuelCostCalculationDto costCalculationDto) {
+    public Response<?> estimateFuelCost(@RequestBody FuelCostCalculationDto costCalculationDto) {
         return Response
                 .ok()
                 .setPayload(vehiclesService.estimateFuelCost(costCalculationDto.getApiKey(),
